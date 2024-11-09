@@ -1,0 +1,17 @@
+<h1>Lista de Compras</h1>
+
+<%= form_with(model: @item, local: true) do |form| %>
+  <div>
+    <%= form.label :nome, "Nome do Item" %>
+    <%= form.text_field :nome %>
+  </div>
+  <%= form.submit "Adicionar" %>
+<% end %>
+
+<h2>Itens na Lista</h2>
+<ul>
+  <% @items.each do |item| %>
+    <li><%= item.nome %> - <%= item.created_at.strftime("%d/%m/%Y %H:%M") %></li>
+  <% end %>
+</ul>
+
