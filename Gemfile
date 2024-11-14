@@ -44,7 +44,7 @@ gem 'capistrano', require: false
 gem 'capistrano-rails', require: false
 gem 'capistrano-bundler', require: false
 gem 'capistrano-rbenv', require: false
-gem 'capistrano3-puma', require: false
+gem 'capistrano-puma', require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
