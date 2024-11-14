@@ -1,6 +1,8 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.19.2"
 
+Rake::Task["deploy:assets:precompile"].clear_actions
+
 set :application, "lista_de_compras"
 set :repo_url, "git@github.com:Naeb/lista_de_compras.git"
 set :deploy_to, "/var/www/lista_compras"
@@ -13,7 +15,6 @@ set :rbenv_type, :user
 set :rbenv_ruby, '3.3.6'
 set :keep_releases, 5
 
-before 'deploy:restart', 'deploy:compile_assets_locally'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -48,21 +49,3 @@ before 'deploy:restart', 'deploy:compile_assets_locally'
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
-
-namespace :deploy do
-  desc 'Compile assets locally and then rsync to web servers'
-  task :compile_assets_locally do
-    run_locally do
-      with rails_env: fetch(:stage) do
-        execute 'bundle exec rake assets:precompile'
-      end
-    end
-    on roles(:web) do
-      within release_path do
-        execute :mkdir, '-p', 'public/assets'
-        upload!('./public/assets/', "#{release_path}/public/assets", recursive: true)
-      end
-    end
-    run_locally { execute 'rm -rf public/assets' }
-  end
-end
