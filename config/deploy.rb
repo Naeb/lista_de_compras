@@ -1,8 +1,8 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.19.2"
 
-Rake::Task["deploy:assets:precompile"].clear_actions
-Rake::Task["deploy:assets:backup_manifest"].clear_actions
+# Rake::Task["deploy:assets:precompile"].clear_actions
+# Rake::Task["deploy:assets:backup_manifest"].clear_actions
 
 set :application, "lista_de_compras"
 set :repo_url, "git@github.com:Naeb/lista_de_compras.git"
