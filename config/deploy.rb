@@ -16,6 +16,14 @@ set :rbenv_type, :user
 set :rbenv_ruby, '3.3.6'
 set :keep_releases, 5
 
+# Iniciar o Puma após o deploy
+namespace :deploy do
+  after :finished, :restart_puma
+  task :restart_puma do
+    invoke 'puma:restart'
+  end
+end
+
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
